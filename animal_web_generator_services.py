@@ -1,17 +1,36 @@
 import json
 import requests
+from dotenv import load_dotenv
+import os
 
-def load_animals_data():
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+
+def load_animals_data_from_api(search_term):
+    """
+   get animal info of API.
+    search_term: e.g "Fox"
+    return: JSON
+    """
+    url = f"https://api.api-ninjas.com/v1/animals?name={search_term}"
+
     try:
-        with open("animals_data.json", "r") as file:
-            animals_data = json.load(file)
-            return animals_data
-    except FileNotFoundError:
-        print("Error: animals_data.json not found.")
+        response = requests.get(url, headers={"X-Api-Key": API_KEY})
+    except Exception as e:
+        print(f"Error contacting API: {e}")
         return []
+
+    if response.status_code != 200:
+        print("API returned non-200 status")
+        return []
+
+    try:
+        return response.json()
     except json.JSONDecodeError:
-        print("Error: Invalid JSON format in animals_data.json.")
+        print("API returned non-JSON response")
         return []
+
 
 
 def load_animals_template():
