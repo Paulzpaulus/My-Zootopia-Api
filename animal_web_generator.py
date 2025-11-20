@@ -5,6 +5,10 @@ from animal_web_generator_services import load_animals_data_from_api, load_anima
 def build_html(animals_data, template):
     output = ""
 
+    if not animals_data or not template:
+        print("Failed to generate ....")
+        return
+
     for animal in animals_data:
         output += serialize_animal(animal)
 
