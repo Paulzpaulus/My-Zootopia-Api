@@ -19,36 +19,18 @@ def load_animals_data_from_api(search_term):
 
     try:
         response = requests.get(url, headers={"X-Api-Key": API_KEY})
-        #print("DEBUG STATUS =", response.status_code)
-        #print("DEBUG TEXT =", response.text[:300])
         response.raise_for_status()
         return response.json()
-    except requests.exceptions.HTTPError as http_e:
-        print(f"HTTP-ERROR: {http_e}")
-        return []
     except Exception as e:
         print(f"Error contacting API: {e}")
         return []
 
-'''    if response.status_code != 200:
-        print("API returned non-200 status")
-        return []'''
-
-'''   try:
-        pass
-
-    except json.JSONDecodeError:
-        print("API returned non-JSON response")
-        return []
-'''
 
 
 
 def load_animals_template():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     template_path = os.path.join(current_dir, "animals_template.html")
-
-    #print("DEBUG TEMPLATE PATH =", template_path)
 
     try:
         with open(template_path, "r") as f:

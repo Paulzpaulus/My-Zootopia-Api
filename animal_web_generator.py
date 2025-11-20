@@ -39,8 +39,6 @@ def main():
 
     search_term = input("please enter a animal:").strip().lower()
     animals_data = load_animals_data_from_api(search_term)
-    #print("DEBUG ANIMAL LIST FROM PYTHON =", animals_data)
-    #print("DEBUG LENGTH =", len(animals_data))
 
     build_html(animals_data, template, search_term)
 
