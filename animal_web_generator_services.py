@@ -1,11 +1,16 @@
 import json
 import requests
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+
+#print("DEBUG WHICH FILE =", __file__)
 
 load_dotenv()
-
 API_KEY = os.getenv("API_KEY")
+
+
+
+
 
 def load_animals_data_from_api(search_term):
     """
@@ -17,6 +22,9 @@ def load_animals_data_from_api(search_term):
 
     try:
         response = requests.get(url, headers={"X-Api-Key": API_KEY})
+        #print("DEBUG STATUS =", response.status_code)
+        #print("DEBUG TEXT =", response.text[:300])
+
     except Exception as e:
         print(f"Error contacting API: {e}")
         return []
@@ -34,17 +42,17 @@ def load_animals_data_from_api(search_term):
 
 
 def load_animals_template():
-    try:
-        with open("animals_template.html", "r") as template_file:
-            template = template_file.read()
-            return template
-    except FileNotFoundError:
-        print("Error: animals_template.html not found.")
-        return ""
-    except Exception as e:
-        print(f"Error: {e}")
-        return ""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    template_path = os.path.join(current_dir, "animals_template.html")
 
+    #print("DEBUG TEMPLATE PATH =", template_path)
+
+    try:
+        with open(template_path, "r") as f:
+            return f.read()
+    except Exception as e:
+        print("Error loading template:", e)
+        return ""
 
 
 def serialize_animal(animal):
@@ -64,3 +72,6 @@ def serialize_animal(animal):
     output += "  </p>\n"
     output += "</li>\n"
     return output
+
+
+
