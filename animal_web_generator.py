@@ -1,7 +1,7 @@
 from animal_web_generator_services import load_animals_data_from_api, load_animals_template, serialize_animal
 import os
 
-print("DEBUG CWD =", os.getcwd())
+#print("DEBUG CWD =", os.getcwd())
 
 def build_html(animals_data, template, search_term):
 
