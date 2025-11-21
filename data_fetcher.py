@@ -27,7 +27,6 @@ def load_animals_data_from_api(search_term):
 
 
 
-
 def load_animals_template():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     template_path = os.path.join(current_dir, "animals_template.html")
